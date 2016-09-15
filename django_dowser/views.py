@@ -16,7 +16,7 @@ from . import reftree
 def index(request):
     floor = int(request.GET.get('floor', default=0))
     rows = []
-    typenames = dowser.history.keys()
+    typenames = list(dowser.history.keys())
     typenames.sort()
     for typename in typenames:
         history = dowser.history[typename]
@@ -235,7 +235,7 @@ class ReferrerTree(reftree.Tree):
     def get_refkey(self, obj, referent):
         """Return the dict key or attribute name of obj which refers to referent."""
         if isinstance(obj, dict):
-            for k, v in obj.iteritems():
+            for k, v in obj.items():
                 if v is referent:
                     return " (via its %r key)" % k
 
