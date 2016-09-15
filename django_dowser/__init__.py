@@ -1,3 +1,4 @@
+import sys
 import gc
 import threading
 import time
@@ -40,9 +41,9 @@ class Dowser(object):
             objtype = type(obj)
             typename = str(objtype.__module__) + "." + objtype.__name__
             if typename in typecounts:
-                typecounts[typename] += 1
+                typecounts[typename] += sys.getsizeof(obj)  # 1
             else:
-                typecounts[typename] = 1
+                typecounts[typename] = sys.getsizeof(obj)  # 1
 
         for typename, count in typecounts.items():
             if typename not in self.history:

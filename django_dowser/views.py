@@ -17,7 +17,9 @@ def index(request):
     floor = int(request.GET.get('floor', default=0))
     rows = []
     typenames = list(dowser.history.keys())
-    typenames.sort()
+    typenames = [(t, dowser.history[t][0][0]) for t in typenames]
+    typenames.sort(key=lambda x: x[1])
+    typenames = reversed([t[0] for t in typenames])
     for typename in typenames:
         history = dowser.history[typename]
         maxhist = 0
